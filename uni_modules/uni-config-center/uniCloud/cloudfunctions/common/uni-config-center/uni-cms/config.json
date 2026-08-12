@@ -1,0 +1,8 @@
+{
+  "clientAppIds": ["__UNI__E93A4F9"],
+  "contentSecurity": false,
+  "adConfig": {
+    "securityKey": "Xxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "watchAdUniqueType": "device"
+  }
+}
