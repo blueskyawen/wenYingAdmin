@@ -1,8 +1,6 @@
 {
 	"bsonType": "object",
-	"required": [
-		"name"
-	],
+	"required": ["name"],
 	"permission": {
 		"read": true,
 		"create": "'admin' in auth.role || 'CREATE_UNI_CMS_CATEGORY' in auth.permission",
@@ -29,7 +27,7 @@
 			"bsonType": "string",
 			"description": "类别图标地址",
 			"label": "图标地址",
-			"pattern": "^(http://|https://|/|./|@/)\\S",
+			"pattern": "^(http:\/\/|https:\/\/|\/|.\/|@\/)\\S",
 			"trim": "both"
 		},
 		"sort": {
