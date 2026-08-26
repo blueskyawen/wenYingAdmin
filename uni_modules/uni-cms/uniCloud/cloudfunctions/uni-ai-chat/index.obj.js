@@ -269,8 +269,8 @@ module.exports = {
         stream: sseChannel !== false,
         sseChannel
       })
-
-      if (sseChannel) {
+	  console.log(res)
+      if (sseChannel && res.on) {
         let reply = ""
         return new Promise((resolve, reject) => {
           const channel = uniCloud.deserializeSSEChannel(sseChannel)

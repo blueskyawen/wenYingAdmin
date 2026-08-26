@@ -250,7 +250,7 @@
           <text class="desc">输入prompt提示词后AI根据你的输入生成文章</text>
         </view>
         <view class="close" @click="showImChat=false">
-          <uni-icons type="closeempty" size="40rpx" class="icon"></uni-icons>
+          <uni-icons type="closeempty" size="16px" class="icon"></uni-icons>
         </view>
       </view>
       <uni-im-chat ref="uniImChat"></uni-im-chat>
@@ -905,7 +905,7 @@ export default {
     //}
 
     .page {
-      height: 720px;
+      //height: 720px;
     }
 
     .container {

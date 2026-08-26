@@ -397,7 +397,8 @@
 							db.collection('uni-cms-articles').add(formData).then(res => {
 								db.collection(articleDBName).doc(item._id).update({
 									"article_status": 1,
-									"relate_cms_id": res.result.id
+									"relate_cms_id": res.result.id,
+									"publish_date": Date.now()
 								}).then(res => {
 									this.$refs.table.clearSelection();
 									this.$refs.udb.loadData();

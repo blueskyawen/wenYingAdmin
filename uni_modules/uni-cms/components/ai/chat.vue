@@ -178,7 +178,7 @@ export default {
     //检查是否开通uni-push;决定是否启用stream
     async checkIsOpenPush() {
       try {
-        await uni.getPushClientId()
+        let res = await uni.getPushClientId()
         this.checkIsOpenPush = () => {
         }
       } catch (err) {
@@ -496,7 +496,7 @@ page,
   /* #endif */
 
   /* #ifdef H5 */
-  height: calc(100vh - 44px);
+  height: calc(100vh - 120px);
   /* #endif */
 
   flex-direction: column;
