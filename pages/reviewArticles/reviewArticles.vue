@@ -392,7 +392,8 @@
 								"last_modify_date": item.last_modify_date,
 								"publish_ip": item.publish_ip,
 								"thumbnail": item.thumbnail ? item.thumbnail : [{}],
-								"publish_date": Date.now()
+								"publish_date": Date.now(),
+								"source": 2
 							}
 							db.collection('uni-cms-articles').add(formData).then(res => {
 								db.collection(articleDBName).doc(item._id).update({

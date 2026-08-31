@@ -367,7 +367,8 @@ export default {
                 article_status: status,
                 title: this.formData.title,
                 content: translateOutputContent(e.delta),
-                publish_date: this.formData.publish_date ? this.formData.publish_date : Date.now()
+                publish_date: this.formData.publish_date ? this.formData.publish_date : Date.now(),
+				source: 1
               })
 
               resolve()

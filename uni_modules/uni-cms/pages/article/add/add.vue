@@ -297,7 +297,8 @@ export default {
 							article_status: status,
 							title: this.formData.title.trim(),
 							content: e.delta,
-							publish_date: Date.now()
+							publish_date: Date.now(),
+							source: 1
 						})
 					}
 				})
