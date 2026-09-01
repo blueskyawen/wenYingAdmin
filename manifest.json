@@ -90,6 +90,12 @@
         },
         "sdkConfigs" : {
             "maps" : {}
+        },
+        "title" : "轻拾刻管理台",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
         }
     },
     "vueVersion" : "2",
