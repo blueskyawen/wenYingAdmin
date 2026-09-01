@@ -63,6 +63,10 @@
 						<uni-th align="center" filter-type="range" @filter-change="filterChange($event, 'view_count')"
 							sortable @sort-change="sortChange($event, 'view_count')">阅读数量
 						</uni-th>
+						<uni-th align="center" filter-type="select"
+							:filter-data="options.filterData.source_localdata"
+							@filter-change="filterChange($event, 'source')">来源
+						</uni-th>
 						<!--						<uni-th align="center" filter-type="range" @filter-change="filterChange($event, 'like_count')" sortable @sort-change="sortChange($event, 'like_count')">点赞数</uni-th>-->
 						<!--            <uni-th align="center" filter-type="range" @filter-change="filterChange($event, 'comment_count')" sortable @sort-change="sortChange($event, 'comment_count')">评论数</uni-th>-->
 						<uni-th align="center" filter-type="timestamp" @filter-change="filterChange($event, 'publish_date')"
@@ -86,6 +90,7 @@
 						<!--						<uni-td align="center">{{ item.is_sticky == true ? '✅' : '❌' }}</uni-td>-->
 						<!--						<uni-td align="center">{{ item.is_essence == true ? '✅' : '❌' }}</uni-td>-->
 						<uni-td align="center">{{ item.view_count || 0 }}</uni-td>
+						<uni-td align="center">{{ sourceMap[item.source - 1] }}</uni-td>
 						<!--            <uni-td align="center">{{item.like_count || 0}}</uni-td>-->
 						<!--						<uni-td align="center">{{item.comment_count || 0}}</uni-td>-->
 						<uni-td align="center">
@@ -93,7 +98,7 @@
 						</uni-td>
 						<uni-td align="center">
 							<view class="uni-group">
-								<button v-if="hasPermission('UPDATE_UNI_CMS_ARTICLE')" @click="navigateTo('../edit/edit?id=' + item._id, false)" class="uni-button"
+								<button v-if="hasPermission('UPDATE_UNI_CMS_ARTICLE') && item.source !== 2" @click="navigateTo('../edit/edit?id=' + item._id, false)" class="uni-button"
 									size="mini" type="primary">修改
 								</button>
 								<button v-if="item.article_status === 1 && hasPermission('UPDATE_UNI_CMS_ARTICLE')" @click="takeOffArticle(item._id)"
@@ -141,13 +146,15 @@ const orderByMapping = {
 	"descending": "desc"
 }
 
+const sourceText = ['管理台', '用户端'];
+
 export default {
   mixins: [authMixin],
 	data() {
 		return {
 			// collectionList 包含了三个对象，每个对象都是一个数据库查询对象，用于联表查询。第一个对象查询文章表，第二个对象查询分类表，第三个对象查询用户表。
 			collectionList: [
-				db.collection(articleDBName).field('is_admin,user_id,category_id,content,title,excerpt,article_status,view_count,like_count,is_sticky,is_essence,comment_status,comment_count,last_comment_user_id,thumbnail,publish_date,publish_ip,last_modify_date,last_modify_ip').getTemp(),
+				db.collection(articleDBName).field('is_admin,user_id,category_id,content,title,excerpt,article_status,view_count,like_count,is_sticky,is_essence,comment_status,comment_count,last_comment_user_id,thumbnail,publish_date,publish_ip,last_modify_date,last_modify_ip,source').getTemp(),
 				db.collection(categoryDBName).field('name as text, _id').getTemp(),
 				db.collection(userDBName).field('nickname, _id').getTemp(),
 			],
@@ -185,7 +192,17 @@ export default {
 							"text": "开放"
 						}
 					],
-					categories: []
+					categories: [],
+					"source_localdata": [
+						{
+							"value": 1,
+							"text": "管理台"
+						},
+						{
+							"value": 2,
+							"text": "用户端"
+						}
+					],
 				},
 				...enumConverter
 			},
@@ -218,7 +235,8 @@ export default {
 				}
 			},
 			tableList: [],
-			exportExcelData: []
+			exportExcelData: [],
+			sourceMap: sourceText
 		}
 	},
 	onLoad() {
